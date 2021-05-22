@@ -66,14 +66,12 @@ export class ClassService {
   }
 
   public getSimilarClasses(message: IMessage, invalidClasses: string[]): IEmbedData[] {
-    const embeddedMessages: IEmbedData[] = [];
-    invalidClasses.forEach((invalidClass: string, i) => {
+    const embeddedMessages = invalidClasses.map((invalidClass: string, i) => {
       const emojiData: IEmojiTable[] = [];
       const embeddedMessage: MessageEmbed = new MessageEmbed();
 
       embeddedMessage.setColor('#0099ff').setTitle(`${invalidClass} Not Found`);
 
-      const curEmote = Constants.NumbersAsEmojis[i];
       const similarClassID = this.findSimilarClasses(invalidClass)[0] || 'Nothing Found.';
 
       //TODO check if similarity is close then decide whether to return the guess or tell them to get a mod.
@@ -89,7 +87,7 @@ export class ClassService {
         }, // This matches with IRegisterData interface from class.service
       });
 
-      embeddedMessages.push({ embeddedMessage: embeddedMessage, emojiData: emojiData });
+      return { embeddedMessage: embeddedMessage, emojiData: emojiData };
     });
 
     return embeddedMessages;
