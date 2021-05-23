@@ -64,7 +64,7 @@ export class ClassService {
   }
 
   public getSimilarClasses(message: IMessage, invalidClasses: string[]): IEmbedData[] {
-    const embeddedMessages = invalidClasses.map((invalidClass: string, i) => {
+    return invalidClasses.map((invalidClass: string, i) => {
       const emojiData: IEmojiTable[] = [];
       const embeddedMessage: MessageEmbed = new MessageEmbed();
 
@@ -87,8 +87,6 @@ export class ClassService {
 
       return { embeddedMessage: embeddedMessage, emojiData: emojiData };
     });
-
-    return embeddedMessages;
   }
 
   async register(request: IClassRequest): Promise<string> {
